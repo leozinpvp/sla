@@ -9,10 +9,12 @@ exports.BOT_EMOJI = "🤖";
 // Nome do bot (mude se preferir).
 exports.BOT_NAME = "LITE BOT";
 
-// Número do bot (apenas números).
+// Número do bot. Coloque o número do bot
+// (apenas números, exatamente como está no WhatsApp).
 exports.BOT_NUMBER = "5599999999";
 
-// Número do dono do bot (apenas números).
+// Número do dono do bot. Coloque o número do dono do bot
+// (apenas números, exatamente como está no WhatsApp).
 exports.OWNER_NUMBER = "5599999999";
 
 // Diretório de arquivos de mídia.
