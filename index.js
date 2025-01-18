@@ -138,9 +138,9 @@ async function runLite({ socket, data }) {
       return;
     }
 
-    // Coloque mais respostas abaixo
+    // ⬇ Coloque mais respostas do auto-responder abaixo ⬇
 
-    // Coloque mais respostas acima
+    // ⬆ Coloque mais respostas do auto-responder acima ⬆
   }
 
   /**
@@ -158,6 +158,10 @@ async function runLite({ socket, data }) {
     return;
   }
 
+  /**
+   * Se não houver um
+   * prefixo, não faça nada.
+   */
   if (!checkPrefix(prefix)) {
     return;
   }
