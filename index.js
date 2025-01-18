@@ -137,6 +137,10 @@ async function runLite({ socket, data }) {
       await reply("Salve, salve!");
       return;
     }
+
+    // Coloque mais respostas abaixo
+
+    // Coloque mais respostas acima
   }
 
   /**
@@ -229,7 +233,7 @@ async function runLite({ socket, data }) {
 
         await successReact();
 
-        await stickerFromATTPURL(url);
+        await stickerFromURL(attpUrl);
         break;
       case "ban":
       case "banir":
