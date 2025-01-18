@@ -1,7 +1,7 @@
 const path = require("path");
 
 // Prefixo dos comandos.
-exports.PREFIX = "$";
+exports.PREFIX = "/";
 
 // Emoji do bot (mude se preferir).
 exports.BOT_EMOJI = "🤖";
@@ -10,10 +10,10 @@ exports.BOT_EMOJI = "🤖";
 exports.BOT_NAME = "LITE BOT";
 
 // Número do bot (apenas números).
-exports.BOT_NUMBER = "554796974871";
+exports.BOT_NUMBER = "5599999999";
 
 // Número do dono do bot (apenas números).
-exports.OWNER_NUMBER = "5511996122056";
+exports.OWNER_NUMBER = "5599999999";
 
 // Diretório de arquivos de mídia.
 exports.ASSETS_DIR = path.resolve(__dirname, "assets");
