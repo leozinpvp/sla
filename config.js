@@ -11,11 +11,11 @@ exports.BOT_NAME = "LITE BOT";
 
 // Número do bot. Coloque o número do bot
 // (apenas números, exatamente como está no WhatsApp).
-exports.BOT_NUMBER = "5599999999";
+exports.BOT_NUMBER = "559999999999";
 
 // Número do dono do bot. Coloque o número do dono do bot
 // (apenas números, exatamente como está no WhatsApp).
-exports.OWNER_NUMBER = "5599999999";
+exports.OWNER_NUMBER = "559999999999";
 
 // Diretório de arquivos de mídia.
 exports.ASSETS_DIR = path.resolve(__dirname, "assets");
