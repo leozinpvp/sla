@@ -57,6 +57,7 @@ async function startConnection() {
 
   const socket = makeWASocket({
     version,
+    browser: ["Safari", "MacOS", "15.0"],
     logger: pino({ level: "error" }),
     printQRInTerminal: false,
     defaultQueryTimeoutMs: 60 * 1000,

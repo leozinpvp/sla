@@ -6,7 +6,7 @@
 
 <div align="center">
     <a href="https://github.com/guiireal/lite-bot">
-        <img alt="Version" src="https://img.shields.io/badge/Vers%C3%A3o-1.1.0-blue">
+        <img alt="Version" src="https://img.shields.io/badge/Vers%C3%A3o-1.2.0-blue">
     </a>
 </div>
 
@@ -20,7 +20,7 @@
 - [Baileys](https://github.com/WhiskeySockets/Baileys)
 - [FFMPEG](https://ffmpeg.org/)
 - [Herc.ai](https://www.npmjs.com/package/hercai)
-- [Node.js 20.17.0](https://nodejs.org/en)
+- [Node.js 20.18.x](https://nodejs.org/en)
 - [Spider X API](https://api.spiderx.com.br)
 - [Yarn 1.22.22](https://yarnpkg.com)
 
