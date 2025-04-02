@@ -26,7 +26,6 @@ const {
   isJidNewsletter,
   delay,
 } = require("baileys");
-const NodeCache = require("node-cache");
 const pino = require("pino");
 const { BAILEYS_CREDS_DIR } = require("./config");
 const { runLite } = require("./index");
@@ -41,8 +40,6 @@ const {
   bannerLog,
 } = require("./utils/terminal");
 const { welcome } = require("./welcome");
-
-const msgRetryCounterCache = new NodeCache();
 
 const store = makeInMemoryStore({
   logger: pino().child({ level: "silent", stream: "store" }),
@@ -66,7 +63,6 @@ async function startConnection() {
       isJidBroadcast(jid) || isJidStatusBroadcast(jid) || isJidNewsletter(jid),
     keepAliveIntervalMs: 60 * 1000,
     markOnlineOnConnect: true,
-    msgRetryCounterCache,
     shouldSyncHistoryMessage: () => false,
     getMessage: async (key) => {
       if (!store) {
