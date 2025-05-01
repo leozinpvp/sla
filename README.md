@@ -1,3 +1,14 @@
+# ⚠️ IMPORTANTE: PROJETO DESCONTINUADO ⚠️
+
+**Este bot foi descontinuado e não receberá mais atualizações.**
+
+Para continuar usando um bot atualizado e com mais recursos, migre para o **Takeshi Bot**:
+👉 [https://github.com/guiireal/takeshi-bot](https://github.com/guiireal/takeshi-bot)
+
+O Takeshi Bot é a versão mais recente, com suporte ativo e novas funcionalidades.
+
+---
+
 <div align="center">
     <img src="./assets/images/menu.png" width="500">
 </div>
