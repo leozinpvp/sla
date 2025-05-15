@@ -1,33 +1,43 @@
-const { OpenAI } = require('openai');
+const axios = require("axios");
 
-const openai = new OpenAI({
-  apiKey: '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' // substitui por sua chave real
-});
+const GPT_API_URL = "https://api.openai.com/v1/chat/completions"; // endpoint oficial OpenAI chat completions
+const GPT_API_KEY = process.env.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; // sua chave na variável de ambiente
 
-module.exports = {
-  name: 'ai',
-  description: 'Conversa com inteligência artificial',
-  async execute(client, m, args) {
-    const pergunta = args.join(' ');
-    if (!pergunta) return m.reply('Digite algo para eu responder, ex: !ai como está o clima?');
-
-    try {
-      const resposta = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages: [
-          { role: 'system', content: 'Você é um assistente útil e direto.' },
-          { role: 'user', content: pergunta }
-        ],
-        max_tokens: 1000,
-        temperature: 0.7
-      });
-
-      const reply = resposta.choices[0].message.content;
-      await client.sendMessage(m.chat, { text: reply }, { quoted: m });
-
-    } catch (error) {
-      console.error('Erro na OpenAI:', error);
-      m.reply('Erro ao consultar a IA. Verifique sua chave de API.');
-    }
+async function execute(client, data, args) {
+  const prompt = args.join(" ").trim();
+  if (!prompt) {
+    await client.sendMessage(data.from, {
+      text: "Por favor, me envie uma pergunta ou texto para responder.",
+    });
+    return;
   }
-};
+
+  try {
+    const response = await axios.post(
+      GPT_API_URL,
+      {
+        model: "gpt-3.5-turbo",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 500,
+        temperature: 0.7,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GPT_API_KEY}`,
+        },
+      }
+    );
+
+    const aiMessage = response.data.choices[0].message.content.trim();
+
+    await client.sendMessage(data.from, { text: aiMessage });
+  } catch (error) {
+    console.error("Erro ao chamar API GPT:", error.response?.data || error.message);
+    await client.sendMessage(data.from, {
+      text: "Putz, tive um problema ao acessar a IA. Tente de novo mais tarde.",
+    });
+  }
+}
+
+module.exports = { execute };
