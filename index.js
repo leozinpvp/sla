@@ -11,6 +11,7 @@
  *
  * @author Dev Gui
  */
+
 const path = require("node:path");
 const { menu } = require("./utils/menu");
 const { ASSETS_DIR, BOT_NUMBER, SPIDER_API_TOKEN } = require("./config");
@@ -24,8 +25,6 @@ const {
 } = require("./services/spider-x-api");
 const { consultarCep } = require("correios-brasil/dist");
 const { image } = require("./services/hercai");
-
-const ai = require("./ai"); // **import do módulo ai**
 
 const {
   InvalidParameterError,
@@ -63,6 +62,9 @@ const {
   activateGroup,
   deactivateGroup,
 } = require("./database/db");
+
+// Importa o módulo ai que criamos
+const ai = require("./ai");
 
 async function runLite({ socket, data }) {
   const functions = loadLiteFunctions({ socket, data });
@@ -119,6 +121,7 @@ async function runLite({ socket, data }) {
   }
 
   if (!checkPrefix(prefix)) {
+    // Auto-responder simplificado (exemplos)
     if (body.toLowerCase().includes("gado")) {
       await reply("Você é o gadão guerreiro!");
       return;
@@ -128,8 +131,13 @@ async function runLite({ socket, data }) {
       await reply("Salve, salve!");
       return;
     }
+
+    return;
   }
 
+  /**
+   * 🚫 Anti-link 🔗
+   */
   if (
     !checkPrefix(prefix) &&
     isActiveAntiLinkGroup(from) &&
@@ -146,9 +154,17 @@ async function runLite({ socket, data }) {
   }
 
   try {
+    // Aqui o novo comando !ai
+    if (body.startsWith(`${prefix}ai`)) {
+      // args já é um array sem o comando
+      await ai.execute(lite, data, args);
+      return;
+    }
+
     switch (removeAccentsAndSpecialCharacters(command?.toLowerCase())) {
+      // ... teu switch case atual (antilink, attp, ban, cep, etc)
+
       case "antilink":
-        // seu código antilink
         if (!args.length) {
           throw new InvalidParameterError(
             "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
@@ -156,7 +172,6 @@ async function runLite({ socket, data }) {
         }
         const antiLinkOn = args[0] === "1";
         const antiLinkOff = args[0] === "0";
-
         if (!antiLinkOn && !antiLinkOff) {
           throw new InvalidParameterError(
             "Você precisa digitar 1 ou 0 (ligar ou desligar)!"
@@ -171,37 +186,11 @@ async function runLite({ socket, data }) {
         await reply(`Recurso de anti-link ${antiLinkOn ? "ativado" : "desativado"} com sucesso!`);
         break;
 
-      // ... demais cases (attp, ban, cep, gpt4, etc) ...
-
-      case "gpt4":
-      case "gpt":
-      case "ia":
-      case "lite":
-        {
-          const text = args.join(" ");
-          if (!text) {
-            throw new InvalidParameterError("Você precisa me dizer o que eu devo responder!");
-          }
-          await waitReact();
-          const responseText = await gpt4(text);
-          await successReply(responseText);
-        }
-        break;
-
-      case "ai": // novo comando AI
-        {
-          const argsAI = args;
-          await waitReact();
-          await ai.execute(client, data, argsAI); // ajusta conforme sua implementação do ai.execute
-          await successReact();
-        }
-        break;
-
-      // ... os demais comandos ...
+      // ... os demais cases seguem aqui, igual ao seu código
 
       default:
-        // comandos não reconhecidos podem ser ignorados ou responder aqui
-        break;
+        // Nenhum comando reconhecido
+        await warningReply("Comando não reconhecido.");
     }
   } catch (error) {
     if (error instanceof InvalidParameterError) {
@@ -212,7 +201,9 @@ async function runLite({ socket, data }) {
       await errorReply(error.message);
     } else {
       errorLog(`Erro ao executar comando!\n\nDetalhes: ${error.message}`);
-      await errorReply(`Ocorreu um erro ao executar o comando ${command.name}!\n\n📄 *Detalhes*: ${error.message}`);
+      await errorReply(
+        `Ocorreu um erro ao executar o comando ${command.name}!\n\n📄 *Detalhes*: ${error.message}`
+      );
     }
   }
 }
